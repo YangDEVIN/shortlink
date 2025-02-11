@@ -1,5 +1,8 @@
 package com.shortlink.admin.controller;
 
+import com.fasterxml.jackson.databind.ser.std.JsonValueSerializer;
+import com.shortlink.admin.common.convention.Result;
+import com.shortlink.admin.common.convention.Results;
 import com.shortlink.admin.dto.respond.UserRespDTO;
 import com.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +25,8 @@ public class UserController {
      */
 
     @GetMapping("/api/short-link/admin/v1/user/{username}")
-    public UserRespDTO getUserByUsername(@PathVariable("username") String username){
-        return userService.getUserByUsername(username);
+    public Result<UserRespDTO> getUserByUsername(@PathVariable("username") String username){
+        UserRespDTO result = userService.getUserByUsername(username);
+        return Results.success(result);
     }
 }
