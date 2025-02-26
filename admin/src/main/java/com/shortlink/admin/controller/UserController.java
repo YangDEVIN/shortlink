@@ -10,6 +10,7 @@ import com.shortlink.admin.dto.respond.UserRespDTO;
 import com.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,7 +25,7 @@ public class UserController {
     /**
      * 根据用户名查询用户信息
      */
-
+    @Cacheable(value = "userCache", key = "#username")
     @GetMapping("/api/short-link/admin/v1/user/{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable("username") String username){
         UserRespDTO result = userService.getUserByUsername(username);
